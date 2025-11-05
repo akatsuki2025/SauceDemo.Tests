@@ -37,14 +37,12 @@ namespace SauceDemo.BusinessLayer.PageObjects
 
         public void ClearUsername()
         {
-            var element = WaitForElement(UsernameInput);
-            element.Clear();
+            ClearField(UsernameInput);
         }
 
         public void ClearPassword()
         {
-            var element = WaitForElement(PasswordInput);
-            element.Clear();
+            ClearField(PasswordInput);
         }
 
         public void ClickLogin()
