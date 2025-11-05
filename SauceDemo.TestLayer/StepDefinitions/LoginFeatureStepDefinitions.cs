@@ -3,27 +3,32 @@ using log4net;
 
 namespace SauceDemo.TestLayer.StepDefinitions
 {
+    /// <summary>
+    /// Step definitions for the SauceDemo login feature.
+    /// </summary>
     [Binding]
     public class LoginFeatureStepDefinitions
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(LoginFeatureStepDefinitions));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(LoginFeatureStepDefinitions));
         private DashboardPage? _dashboardPage;
-
         private readonly LoginPage _loginPage = new LoginPage();
 
+        /// <summary>
+        /// Gets the login page instance.
+        /// </summary>
         private LoginPage LoginPage => _loginPage;
 
         [Given("The user is on the SauceDemo login page")]
         public void GivenTheUserIsOnTheSauceDemoLoginPage()
         {
-            log.Info("Navigating to SauceDemo login page.");
+            Log.Info("Navigating to SauceDemo login page.");
             LoginPage.NavigateTo("https://www.saucedemo.com/"); 
         }
 
         [Given(@"the user enters ""(.*)"" as username and ""(.*)"" as password")]
         public void GivenTheUserEntersAsUsernameAndAsPassword(string username, string password)
         {
-            log.Info($"Entering username: {username} and password: [HIDDEN]");
+            Log.Info($"Entering username: {username} and password: [HIDDEN]");
             LoginPage.EnterUsername(username);
             LoginPage.EnterPassword(password);
         }
@@ -31,7 +36,7 @@ namespace SauceDemo.TestLayer.StepDefinitions
         [Given("the user clears both fields")]
         public void GivenTheUserClearsBothFields()
         {
-            log.Info("Clearing both username and password fields.");
+            Log.Info("Clearing both username and password fields.");
             LoginPage.ClearUsername();
             LoginPage.ClearPassword();
         }
@@ -39,14 +44,14 @@ namespace SauceDemo.TestLayer.StepDefinitions
         [Given("the user clears the password field")]
         public void GivenTheUserClearsThePasswordField()
         {
-            log.Info("Clearing password field.");
+            Log.Info("Clearing password field.");
             LoginPage.ClearPassword();
         }
 
         [When("the user submits the login form")]
         public void WhenTheUserSubmitsTheLoginForm()
         {
-            log.Info("Submitting the login form.");
+            Log.Info("Submitting the login form.");
             LoginPage.ClickLogin();
             _dashboardPage = new DashboardPage();
         }
@@ -55,7 +60,7 @@ namespace SauceDemo.TestLayer.StepDefinitions
         public void ThenTheErrorMessageShouldBeDisplayed(string expectedMessage)
         {
             var actualMessage = LoginPage.GetErrorMessage();
-            log.Info($"Checking error message. Expected: '{expectedMessage}', Actual: '{actualMessage}'");
+            Log.Info($"Checking error message. Expected: '{expectedMessage}', Actual: '{actualMessage}'");
             actualMessage.Should().Contain(expectedMessage);
         }
 
@@ -66,7 +71,7 @@ namespace SauceDemo.TestLayer.StepDefinitions
                 throw new InvalidOperationException("DashboardPage is not initialized.");
 
             var actualTitle = _dashboardPage.GetDashboardTitle();
-            log.Info($"Checking dashboard title. Expected: '{expectedTitle}', Actual: '{actualTitle}'");
+            Log.Info($"Checking dashboard title. Expected: '{expectedTitle}', Actual: '{actualTitle}'");
             actualTitle.Should().Be(expectedTitle, "the dashboard title should match after successful login");
         }
     }

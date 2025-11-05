@@ -8,7 +8,7 @@ namespace SauceDemo.TestLayer.Support
         [BeforeScenario]
         public void BeforeScenario()
         {
-            DriverManager.SetBrowser(BrowserType.Firefox); // or Chrome/Edge
+            DriverManager.SetBrowser(BrowserType.Edge);
             DriverManager.GetDriver();
         }
 
