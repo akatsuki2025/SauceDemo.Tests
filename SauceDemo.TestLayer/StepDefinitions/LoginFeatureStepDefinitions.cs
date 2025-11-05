@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using Reqnroll;
 using SauceDemo.BusinessLayer.PageObjects;
+using SauceDemo.CoreLayer.Drivers;
 using System;
 
 namespace SauceDemo.TestLayer.StepDefinitions
@@ -15,9 +16,10 @@ namespace SauceDemo.TestLayer.StepDefinitions
         private DashboardPage _dashboardPage;
 
         [BeforeScenario]
-        public void BeforeScenario()
+        public void Setup()
         {
-            _driver = new ChromeDriver();
+            var factory = DriverFactory.GetFactory(BrowserType.Firefox); // or Chrome/Edge
+            _driver = factory.CreateDriver();
             _loginPage = new LoginPage(_driver);
         }
 
