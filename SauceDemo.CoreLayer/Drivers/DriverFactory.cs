@@ -1,4 +1,7 @@
-﻿namespace SauceDemo.CoreLayer.Drivers
+﻿using SauceDemo.CoreLayer.Drivers.Enums;
+using SauceDemo.CoreLayer.Drivers.Factories;
+
+namespace SauceDemo.CoreLayer.Drivers
 {
     public static class DriverFactory
     {

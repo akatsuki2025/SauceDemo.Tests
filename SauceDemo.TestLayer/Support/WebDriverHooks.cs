@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 using SauceDemo.BusinessLayer.PageObjects;
-using SauceDemo.CoreLayer.Drivers;
+using SauceDemo.CoreLayer.Drivers.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,29 +12,17 @@ namespace SauceDemo.TestLayer.Support
     [Binding]
     public class WebDriverHooks
     {
-        private readonly ScenarioContext scenarioContext;
-
-        public WebDriverHooks(ScenarioContext scenarioContext)
-        {
-            this.scenarioContext = scenarioContext;
-        }
-
         [BeforeScenario]
         public void BeforeScenario()
         {
-            var factory = DriverFactory.GetFactory(BrowserType.Firefox); // or Chrome/Edge
-            var driver = factory.CreateDriver();
-            scenarioContext["WebDriver"] = driver;
+            DriverManager.SetBrowser(BrowserType.Firefox); // or Chrome/Edge
+            DriverManager.GetDriver();
         }
 
         [AfterScenario]
         public void AfterScenario()
         {
-            if (scenarioContext.TryGetValue("WebDriver", out IWebDriver driver))
-            {
-                driver.Quit();
-                driver.Dispose();
-            }
+            DriverManager.QuitDriver();
         }
     }
 }

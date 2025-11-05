@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Edge;
 
-namespace SauceDemo.CoreLayer.Drivers
+namespace SauceDemo.CoreLayer.Drivers.Factories
 {
     public class EdgeDriverFactory : IWebDriverFactory
     {

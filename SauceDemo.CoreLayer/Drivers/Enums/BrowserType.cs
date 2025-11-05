@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SauceDemo.CoreLayer.Drivers
+namespace SauceDemo.CoreLayer.Drivers.Enums
 {
     public enum BrowserType
     {

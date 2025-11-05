@@ -14,61 +14,46 @@ namespace SauceDemo.BusinessLayer.PageObjects
         private readonly By LoginButton = By.CssSelector("#login-button");
         private readonly By ErrorMessage = By.CssSelector("h3[data-test='error']");
 
-        public LoginPage(IWebDriver driver) : base(driver)
+        public LoginPage() : base()
         {
-        }
-
-        public override bool IsAt()
-        {
-            throw new NotImplementedException();
         }
 
         public void EnterUsername(string username)
         {
-            driver.FindElement(UsernameInput).SendKeys(username);
+            var element = WaitForElement(UsernameInput);
+            element.Clear();
+            element.SendKeys(username);
         }
 
         public void EnterPassword(string password)
         {
-            driver.FindElement(PasswordInput).SendKeys(password);
+            var element = WaitForElement(PasswordInput);
+            element.Clear();
+            element.SendKeys(password);
         }
 
         public void ClearUsername()
         {
-            var element = driver.FindElement(UsernameInput);
+            var element = WaitForElement(UsernameInput);
             element.Clear();
-            element.SendKeys(" ");      // Send a space
-            element.SendKeys(Keys.Backspace); // Remove the space
         }
 
         public void ClearPassword()
         {
-            var element = driver.FindElement(PasswordInput);
+            var element = WaitForElement(PasswordInput);
             element.Clear();
-            element.SendKeys(" ");      // Send a space
-            element.SendKeys(Keys.Backspace); // Remove the space
-        }
-
-        public string GetUsernameValue()
-        {
-            return driver.FindElement(UsernameInput).GetAttribute("value");
-        }
-
-        public string GetPasswordValue()
-        {
-            return driver.FindElement(PasswordInput).GetAttribute("value");
         }
 
         public void ClickLogin()
         {
-            driver.FindElement(LoginButton).Click();
+            WaitForElement(LoginButton).Click();
         }
 
         public string GetErrorMessage()
         {
             try
             {
-                return driver.FindElement(ErrorMessage).Text;
+                return WaitForElement(ErrorMessage).Text;
             }
             catch (NoSuchElementException)
             {

@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 
-namespace SauceDemo.CoreLayer.Drivers
+namespace SauceDemo.CoreLayer.Drivers.Factories
 {
     public class FirefoxDriverFactory : IWebDriverFactory
     {

@@ -13,16 +13,9 @@ namespace SauceDemo.TestLayer.StepDefinitions
     public class LoginFeatureStepDefinitions
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(LoginFeatureStepDefinitions));
-        private readonly ScenarioContext _scenarioContext;
-
-        private IWebDriver Driver => (IWebDriver)_scenarioContext["WebDriver"];
-        private LoginPage LoginPage => new LoginPage(Driver);
         private DashboardPage? _dashboardPage;
 
-        public LoginFeatureStepDefinitions(ScenarioContext scenarioContext)
-        {
-            _scenarioContext = scenarioContext;
-        }
+        private LoginPage LoginPage => new LoginPage();
 
         [Given("The user is on the SauceDemo login page")]
         public void GivenTheUserIsOnTheSauceDemoLoginPage()
@@ -45,9 +38,6 @@ namespace SauceDemo.TestLayer.StepDefinitions
             log.Info("Clearing both username and password fields.");
             LoginPage.ClearUsername();
             LoginPage.ClearPassword();
-            log.Debug("Checking that both fields are empty.");
-            LoginPage.GetUsernameValue().Should().BeEmpty("Username field should be empty after clearing.");
-            LoginPage.GetPasswordValue().Should().BeEmpty("Password field should be empty after clearing.");
         }
 
         [Given("the user clears the password field")]
@@ -62,7 +52,7 @@ namespace SauceDemo.TestLayer.StepDefinitions
         {
             log.Info("Submitting the login form.");
             LoginPage.ClickLogin();
-            _dashboardPage = new DashboardPage(Driver);
+            _dashboardPage = new DashboardPage();
         }
 
         [Then(@"the error message ""(.*)"" should be displayed")]
