@@ -2,7 +2,6 @@
 using log4net.Config;
 using System.Reflection;
 
-
 namespace SauceDemo.TestLayer.Support
 {
     public static class Log4NetConfig

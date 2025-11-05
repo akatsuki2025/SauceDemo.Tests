@@ -1,11 +1,5 @@
 using FluentAssertions;
 using log4net;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using Reqnroll;
-using SauceDemo.BusinessLayer.PageObjects;
-using SauceDemo.CoreLayer.Drivers;
-using System;
 
 namespace SauceDemo.TestLayer.StepDefinitions
 {
@@ -15,7 +9,9 @@ namespace SauceDemo.TestLayer.StepDefinitions
         private static readonly ILog log = LogManager.GetLogger(typeof(LoginFeatureStepDefinitions));
         private DashboardPage? _dashboardPage;
 
-        private LoginPage LoginPage => new LoginPage();
+        private readonly LoginPage _loginPage = new LoginPage();
+
+        private LoginPage LoginPage => _loginPage;
 
         [Given("The user is on the SauceDemo login page")]
         public void GivenTheUserIsOnTheSauceDemoLoginPage()
@@ -66,6 +62,9 @@ namespace SauceDemo.TestLayer.StepDefinitions
         [Then("the dashboard title {string} should be displayed")]
         public void ThenTheDashboardTitleShouldBeDisplayed(string expectedTitle)
         {
+            if (_dashboardPage == null)
+                throw new InvalidOperationException("DashboardPage is not initialized.");
+
             var actualTitle = _dashboardPage.GetDashboardTitle();
             log.Info($"Checking dashboard title. Expected: '{expectedTitle}', Actual: '{actualTitle}'");
             actualTitle.Should().Be(expectedTitle, "the dashboard title should match after successful login");

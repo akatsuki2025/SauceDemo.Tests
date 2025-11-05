@@ -1,11 +1,4 @@
-﻿using OpenQA.Selenium;
-using SauceDemo.BusinessLayer.PageObjects;
-using SauceDemo.CoreLayer.Drivers.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SauceDemo.CoreLayer.Drivers.Enums;
 
 namespace SauceDemo.TestLayer.Support
 {
