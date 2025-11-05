@@ -1,4 +1,5 @@
 using FluentAssertions;
+using log4net;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using Reqnroll;
@@ -9,78 +10,75 @@ using System;
 namespace SauceDemo.TestLayer.StepDefinitions
 {
     [Binding]
-    public class LoginFeatureStepDefinitions : IDisposable
+    public class LoginFeatureStepDefinitions
     {
-        private IWebDriver _driver;
-        private LoginPage _loginPage;
-        private DashboardPage _dashboardPage;
+        private static readonly ILog log = LogManager.GetLogger(typeof(LoginFeatureStepDefinitions));
+        private readonly ScenarioContext _scenarioContext;
 
-        [BeforeScenario]
-        public void Setup()
+        private IWebDriver Driver => (IWebDriver)_scenarioContext["WebDriver"];
+        private LoginPage LoginPage => new LoginPage(Driver);
+        private DashboardPage? _dashboardPage;
+
+        public LoginFeatureStepDefinitions(ScenarioContext scenarioContext)
         {
-            var factory = DriverFactory.GetFactory(BrowserType.Firefox); // or Chrome/Edge
-            _driver = factory.CreateDriver();
-            _loginPage = new LoginPage(_driver);
+            _scenarioContext = scenarioContext;
         }
 
         [Given("The user is on the SauceDemo login page")]
         public void GivenTheUserIsOnTheSauceDemoLoginPage()
         {
-            _loginPage.NavigateTo("https://www.saucedemo.com/"); 
+            log.Info("Navigating to SauceDemo login page.");
+            LoginPage.NavigateTo("https://www.saucedemo.com/"); 
         }
 
         [Given(@"the user enters ""(.*)"" as username and ""(.*)"" as password")]
         public void GivenTheUserEntersAsUsernameAndAsPassword(string username, string password)
         {
-            _loginPage.EnterUsername(username);
-            _loginPage.EnterPassword(password);
+            log.Info($"Entering username: {username} and password: [HIDDEN]");
+            LoginPage.EnterUsername(username);
+            LoginPage.EnterPassword(password);
         }
 
         [Given("the user clears both fields")]
         public void GivenTheUserClearsBothFields()
         {
-            _loginPage.ClearUsername();
-            _loginPage.ClearPassword();
-            _loginPage.GetUsernameValue().Should().BeEmpty("Username field should be empty after clearing.");
-            _loginPage.GetPasswordValue().Should().BeEmpty("Password field should be empty after clearing.");
+            log.Info("Clearing both username and password fields.");
+            LoginPage.ClearUsername();
+            LoginPage.ClearPassword();
+            log.Debug("Checking that both fields are empty.");
+            LoginPage.GetUsernameValue().Should().BeEmpty("Username field should be empty after clearing.");
+            LoginPage.GetPasswordValue().Should().BeEmpty("Password field should be empty after clearing.");
         }
 
         [Given("the user clears the password field")]
         public void GivenTheUserClearsThePasswordField()
         {
-            _loginPage.ClearPassword();
+            log.Info("Clearing password field.");
+            LoginPage.ClearPassword();
         }
 
         [When("the user submits the login form")]
         public void WhenTheUserSubmitsTheLoginForm()
         {
-            _loginPage.ClickLogin();
-            _dashboardPage = new DashboardPage(_driver);
+            log.Info("Submitting the login form.");
+            LoginPage.ClickLogin();
+            _dashboardPage = new DashboardPage(Driver);
         }
 
         [Then(@"the error message ""(.*)"" should be displayed")]
         public void ThenTheErrorMessageShouldBeDisplayed(string expectedMessage)
         {
-            var actualMessage = _loginPage.GetErrorMessage();
+            var actualMessage = LoginPage.GetErrorMessage();
+            log.Info($"Checking error message. Expected: '{expectedMessage}', Actual: '{actualMessage}'");
             actualMessage.Should().Contain(expectedMessage);
         }
 
         [Then("the dashboard title {string} should be displayed")]
         public void ThenTheDashboardTitleShouldBeDisplayed(string expectedTitle)
         {
-            _dashboardPage.GetDashboardTitle().Should().Be(expectedTitle, "the dashboard title should match after successful login");
-        }
-
-        [AfterScenario]
-        public void AfterScenario()
-        {
-            _driver?.Quit();
-            _driver?.Dispose();
-        }
-
-        public void Dispose()
-        {
-            _driver?.Dispose();
+            var actualTitle = _dashboardPage.GetDashboardTitle();
+            log.Info($"Checking dashboard title. Expected: '{expectedTitle}', Actual: '{actualTitle}'");
+            actualTitle.Should().Be(expectedTitle, "the dashboard title should match after successful login");
         }
     }
 }
