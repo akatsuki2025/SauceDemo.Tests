@@ -2,9 +2,6 @@
 
 namespace SauceDemo.BusinessLayer.PageObjects
 {
-    /// <summary>
-    /// Represents the login page and provides methods to interact with its elements.
-    /// </summary>
     public class LoginPage : BasePage
     {
         private readonly By UsernameInput = By.CssSelector("#user-name");
@@ -12,16 +9,12 @@ namespace SauceDemo.BusinessLayer.PageObjects
         private readonly By LoginButton = By.CssSelector("#login-button");
         private readonly By ErrorMessage = By.CssSelector("h3[data-test='error']");
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LoginPage"/> class.
-        /// </summary>
         public LoginPage() : base()
         {
         }
 
         public void EnterUsername(string username)
         {
-            ArgumentNullException.ThrowIfNullOrWhiteSpace(username);
             var element = WaitForElement(UsernameInput);
             element.Clear();
             element.SendKeys(username);
@@ -29,7 +22,6 @@ namespace SauceDemo.BusinessLayer.PageObjects
 
         public void EnterPassword(string password)
         {
-            ArgumentNullException.ThrowIfNullOrWhiteSpace(password);
             var element = WaitForElement(PasswordInput);
             element.Clear();
             element.SendKeys(password);

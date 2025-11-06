@@ -40,48 +40,41 @@ Test Runner: xUnit;
 Assertions: FluentAssertions;
 [Optional] Loggers: Log4Net.
 
+---
 
-## User Cases
+## Solution Structure
 
-### UC-1: Test Login Form with Empty Credentials
-1. Type any credentials into the "Username" and "Password" fields.
-2. Clear the inputs.
-3. Hit the "Login" button.
-4. Check the error message: **"Username is required"**.
-
-### UC-2: Test Login Form with Credentials by Passing Username
-1. Type any credentials in the username field.
-2. Enter a password.
-3. Clear the "Password" input.
-4. Hit the "Login" button.
-5. Check the error message: **"Password is required"**.
-
-### UC-3: Test Login Form with Valid Credentials
-1. Type a username from the "Accepted usernames" section.
-2. Enter the password: **secret_sauce**.
-3. Click "Login" and validate the dashboard title is **"Swag Labs"**.
+- **SauceDemo.BusinessLayer/PageObjects/**  
+  Contains Page Object Models for Login and Dashboard pages.
+- **SauceDemo.CoreLayer/Drivers/**  
+  Implements browser abstraction and driver factories (Chrome, Edge, Firefox) using the Abstract Factory pattern.
+- **SauceDemo.TestLayer/StepDefinitions/**  
+  Contains step definitions for BDD scenarios.
+- **SauceDemo.TestLayer/Features/**  
+  Contains feature files describing test scenarios in Gherkin syntax.
+- **SauceDemo.TestLayer/Support/**  
+  Contains hooks for WebDriver and Log4Net configuration.
+- **SauceDemo.TestLayer/log4net.config**  
+  Log4Net configuration file for logging.
 
 ## Features
 
-- **Parallel Execution:** Tests are tagged and configured for parallel execution.
-- **Logging:** [Optional] Integrate Log4Net for logging test execution.
-- **Data Provider:** Tests are parameterized using xUnit's data provider features.
-- **Test Automation Tool:** Selenium WebDriver.
-- **Browsers Supported:** Edge, Firefox (update driver initialization as needed).
-- **Locators:** CSS selectors.
-- **Test Runner:** xUnit.
-- **Assertions:** FluentAssertions.
-- **BDD Approach:** Implemented with Reqnroll.
-- **[Optional] Patterns:** Abstract Factory, Adapter, Bridge (can be applied for extensibility).
-
-## Project Structure
-
-- `SauceDemo.BusinessLayer/PageObjects/`  
-  Contains Page Object Models for Login and Dashboard pages.
-- `SauceDemo.TestLayer/StepDefinitions/`  
-  Contains step definitions for BDD scenarios.
-- `SauceDemo.TestLayer/Features/`  
-  Contains feature files describing test scenarios in Gherkin syntax.
+- **Logging:**  
+  Log4Net is integrated and configured ([log4net.config](SauceDemo.TestLayer/log4net.config)), with hooks in [`Log4NetHooks`](SauceDemo.TestLayer/Support/Log4NetHooks.cs).
+- **Test Automation Tool:**  
+  Selenium WebDriver.
+- **Browsers Supported:**  
+  Chrome, Edge, Firefox (driver selection via [`WebDriverHooks`](SauceDemo.TestLayer/Support/WebDriverHooks.cs)).
+- **Locators:**  
+  CSS selectors.
+- **Test Runner:**  
+  xUnit.
+- **Assertions:**  
+  FluentAssertions.
+- **BDD Approach:**  
+  Implemented with Reqnroll.
+- **Design Patterns:**  
+  Abstract Factory is applied for driver creation.
 
 ## How to Run
 
@@ -89,7 +82,8 @@ Assertions: FluentAssertions;
    Restore NuGet packages for the solution.
 
 2. **Configure WebDriver:**  
-   By default, tests use ChromeDriver. To use Edge or Firefox, update the driver initialization in [`LoginFeatureStepDefinitions`](SauceDemo.TestLayer/StepDefinitions/LoginFeatureStepDefinitions.cs).
+   The browser is selected in [`WebDriverHooks`](SauceDemo.TestLayer/Support/WebDriverHooks.cs).  
+   By default, tests use Firefox. To use Edge or Chrome, update the browser type in the hook.
 
 3. **Run Tests:**  
    Use the following command in the solution directory:
@@ -97,19 +91,15 @@ Assertions: FluentAssertions;
    dotnet test
    ```
 
-4. **Parallel Execution:**  
-   Tests are tagged for parallel execution by xUnit and Reqnroll.
-
 ## Logging
 
-- [Optional] To enable logging, integrate Log4Net and configure it in the test project.
+- Log4Net is already integrated and configured.  
+  See [`Log4NetHooks`](SauceDemo.TestLayer/Support/Log4NetHooks.cs) and [`log4net.config`](SauceDemo.TestLayer/log4net.config) for details.
 
 ## Customization
 
 - **Browser Support:**  
-  Update the WebDriver initialization to support Edge or Firefox as needed.
-- **Design Patterns:**  
-  Apply Abstract Factory, Adapter, or Bridge patterns for extensibility and maintainability.
+  Change the browser type in [`WebDriverHooks`](SauceDemo.TestLayer/Support/WebDriverHooks.cs) to use Chrome, Edge, or Firefox.
 
 ---
 

@@ -7,7 +7,11 @@ namespace SauceDemo.CoreLayer.Drivers.Factories
     {
         public IWebDriver CreateDriver() 
         {
-            return new FirefoxDriver();
+            var options = new FirefoxOptions();
+            options.SetPreference("signon.autofillForms", false);
+            var driver = new FirefoxDriver(options);
+            driver.Manage().Window.Maximize();
+            return driver;
         }
     }
 }

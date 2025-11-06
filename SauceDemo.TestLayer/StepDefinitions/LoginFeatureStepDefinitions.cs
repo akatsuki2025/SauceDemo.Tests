@@ -13,10 +13,19 @@ namespace SauceDemo.TestLayer.StepDefinitions
         private DashboardPage? _dashboardPage;
         private readonly LoginPage _loginPage = new LoginPage();
 
-        /// <summary>
-        /// Gets the login page instance.
-        /// </summary>
         private LoginPage LoginPage => _loginPage;
+        private DashboardPage DashboardPage
+        {
+            get
+            {
+                if (_dashboardPage == null)
+                {
+                    Log.Info("Creating DashboardPage instance.");
+                    _dashboardPage = new DashboardPage();
+                }
+                return _dashboardPage;
+            }
+        }
 
         [Given("The user is on the SauceDemo login page")]
         public void GivenTheUserIsOnTheSauceDemoLoginPage()
@@ -53,7 +62,6 @@ namespace SauceDemo.TestLayer.StepDefinitions
         {
             Log.Info("Submitting the login form.");
             LoginPage.ClickLogin();
-            _dashboardPage = new DashboardPage();
         }
 
         [Then(@"the error message ""(.*)"" should be displayed")]
@@ -67,10 +75,7 @@ namespace SauceDemo.TestLayer.StepDefinitions
         [Then("the dashboard title {string} should be displayed")]
         public void ThenTheDashboardTitleShouldBeDisplayed(string expectedTitle)
         {
-            if (_dashboardPage == null)
-                throw new InvalidOperationException("DashboardPage is not initialized.");
-
-            var actualTitle = _dashboardPage.GetDashboardTitle();
+            var actualTitle = DashboardPage.GetDashboardTitle();
             Log.Info($"Checking dashboard title. Expected: '{expectedTitle}', Actual: '{actualTitle}'");
             actualTitle.Should().Be(expectedTitle, "the dashboard title should match after successful login");
         }

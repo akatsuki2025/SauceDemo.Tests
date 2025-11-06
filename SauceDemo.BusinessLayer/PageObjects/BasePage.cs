@@ -5,17 +5,11 @@ using SeleniumExtras.WaitHelpers;
 
 namespace SauceDemo.BusinessLayer.PageObjects
 {
-    /// <summary>
-    /// Abstract base class for all page objects. Provides common functionality for page navigation and element waiting.
-    /// </summary>
     public abstract class BasePage
     {
         protected IWebDriver Driver { get; }
         protected WebDriverWait Wait { get; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BasePage"/> class.
-        /// </summary>
         protected BasePage()
         {
             Driver = DriverManager.GetDriver();
@@ -53,14 +47,10 @@ namespace SauceDemo.BusinessLayer.PageObjects
         protected void ClearField(By locator)
         {
             var element = WaitForElement(locator);
-            var value = element.GetAttribute("value");
-            if (!string.IsNullOrEmpty(value))
+            element.Click();
+            while (!string.IsNullOrEmpty(element.GetAttribute("value")))
             {
-                element.Click();
-                for (int i = 0; i < value.Length; i++)
-                {
-                    element.SendKeys(Keys.Backspace);
-                }
+                element.SendKeys(Keys.Backspace);
             }
         }
     }

@@ -39,7 +39,6 @@ namespace SauceDemo.CoreLayer.Drivers
 
                         var factory = DriverFactory.GetFactory(_browserType.Value);
                         _driver = factory.CreateDriver();
-                        _driver.Manage().Window.Maximize();
                     }
                 }
             }
@@ -56,8 +55,8 @@ namespace SauceDemo.CoreLayer.Drivers
                 _driver.Quit();
                 _driver.Dispose();
                 _driver = null;
-                _browserType = null;
             }
+            _browserType = null;
         }
     }
 }
