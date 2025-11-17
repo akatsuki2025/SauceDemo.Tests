@@ -1,54 +1,54 @@
 using FluentAssertions;
 using log4net;
-using Reqnroll;
-using System;
 
 namespace SauceDemo.TestLayer.StepDefinitions
 {
     [Binding]
-    public class LogoutFeatureStepDefinitions
+    public class LogoutFeatureStepDefinitions : BaseStepDefinitions
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(LoginFeatureStepDefinitions));
-        private DashboardPage? _dashboardPage;
-        private readonly LoginPage _loginPage = new LoginPage();
+        private static readonly ILog Log = LogManager.GetLogger(typeof(LogoutFeatureStepDefinitions));
+        private readonly LoginPage _loginPage;
+        private readonly DashboardPage _dashboardPage;
 
-        private LoginPage LoginPage => _loginPage;
-        private DashboardPage DashboardPage
+        public LogoutFeatureStepDefinitions()
         {
-            get
-            {
-                if (_dashboardPage == null)
-                {
-                    Log.Info("Creating DashboardPage instance.");
-                    _dashboardPage = new DashboardPage();
-                }
-                return _dashboardPage;
-            }
+            _loginPage = new LoginPage();
+            _dashboardPage = new DashboardPage();
         }
 
         [Given("The user is logged in with valid credentials")]
         public void GivenTheUserIsLoggedInWithValidCredentials()
         {
             Log.Info("Logging in with valid credentials.");
-            LoginPage.NavigateTo("https://www.saucedemo.com/");
-            LoginPage.EnterUsername("standard_user");
-            LoginPage.EnterPassword("secret_sauce");
-            LoginPage.ClickLogin();
-            DashboardPage.GetDashboardTitle().Should().Be("Swag Labs");
+            try
+            {
+                _loginPage.NavigateTo(BaseUrl);
+                _loginPage.EnterUsername(Environment.GetEnvironmentVariable("SAUCE_USERNAME") ?? "standard_user");
+                _loginPage.EnterPassword(Environment.GetEnvironmentVariable("SAUCE_PASSWORD") ?? "secret_sauce");
+                _loginPage.ClickLogin();
+
+                Log.Info("Verifying successful login.");
+                _dashboardPage.GetDashboardTitle().Should().Be("Swag Labs");
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Login failed.", ex);
+                throw;
+            }
         }
 
         [When("the user clicks the logout button")]
         public void WhenTheUserClicksTheLogoutButton()
         {
             Log.Info("Clicking the logout button.");
-            DashboardPage.ClickLogout();
+            _dashboardPage.ClickLogout();
         }
 
         [Then("the login page should be displayed")]
         public void ThenTheLoginPageShouldBeDisplayed()
         {
             Log.Info("Verifying that the login page is displayed.");
-            var isLoginDisplayed = LoginPage.IsAt();
+            var isLoginDisplayed = _loginPage.IsAt();
             isLoginDisplayed.Should().BeTrue("The login page should be displayed after logout");
         }
     }
