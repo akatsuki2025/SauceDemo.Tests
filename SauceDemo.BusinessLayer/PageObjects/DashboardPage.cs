@@ -1,26 +1,24 @@
-﻿using OpenQA.Selenium;
+﻿namespace SauceDemo.BusinessLayer.PageObjects;
+using OpenQA.Selenium;
 
-namespace SauceDemo.BusinessLayer.PageObjects
+public class DashboardPage : BasePage
 {
-    public class DashboardPage : BasePage
+    private static readonly By DashboardTitle = By.CssSelector(".app_logo");
+    private static readonly By MenuButton = By.CssSelector("#react-burger-menu-btn");
+    private static readonly By LogoutButton = By.CssSelector("#logout_sidebar_link");
+
+    public DashboardPage() : base() 
+    { 
+    }
+
+    public string GetDashboardTitle()
     {
-        private static readonly By DashboardTitle = By.CssSelector(".app_logo");
-        private static readonly By MenuButton = By.CssSelector("#react-burger-menu-btn");
-        private static readonly By LogoutButton = By.CssSelector("#logout_sidebar_link");
+        return WaitForElement(DashboardTitle).Text;
+    }
 
-        public DashboardPage() : base() 
-        { 
-        }
-
-        public string GetDashboardTitle()
-        {
-            return WaitForElement(DashboardTitle).Text;
-        }
-
-        public void ClickLogout()
-        {
-            WaitForElement(MenuButton).Click();
-            WaitForElement(LogoutButton).Click();
-        }
+    public void ClickLogout()
+    {
+        WaitForElement(MenuButton).Click();
+        WaitForElement(LogoutButton).Click();
     }
 }

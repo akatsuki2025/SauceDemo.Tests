@@ -1,9 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿namespace SauceDemo.CoreLayer.Drivers;
+using OpenQA.Selenium;
 
-namespace SauceDemo.CoreLayer.Drivers
+public interface IWebDriverFactory
 {
-    public interface IWebDriverFactory
-    {
-        IWebDriver CreateDriver();
-    }
+    IWebDriver CreateDriver();
 }

@@ -1,12 +1,11 @@
-﻿namespace SauceDemo.TestLayer.Support
+﻿namespace SauceDemo.TestLayer.Support;
+
+[Binding]
+public static class Log4NetHooks
 {
-    [Binding]
-    public static class Log4NetHooks
+    [BeforeTestRun]
+    public static void BeforeTestRun()
     {
-        [BeforeTestRun]
-        public static void BeforeTestRun()
-        {
-            Log4NetConfig.Configure();
-        }
+        Log4NetConfig.Configure();
     }
 }

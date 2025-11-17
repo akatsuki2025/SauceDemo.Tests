@@ -1,31 +1,29 @@
-﻿using log4net;
+﻿namespace SauceDemo.TestLayer.Support;
+using log4net;
 using SauceDemo.CoreLayer.Drivers.Enums;
 
-namespace SauceDemo.TestLayer.Support
+[Binding]
+public class WebDriverHooks
 {
-    [Binding]
-    public class WebDriverHooks
+    private readonly ScenarioContext _scenarioContext;
+
+    public WebDriverHooks(ScenarioContext scenarioContext)
     {
-        private readonly ScenarioContext _scenarioContext;
+        _scenarioContext = scenarioContext;
+    }
 
-        public WebDriverHooks(ScenarioContext scenarioContext)
-        {
-            _scenarioContext = scenarioContext;
-        }
+    [BeforeScenario]
+    public void BeforeScenario()
+    {
+        LogicalThreadContext.Properties["TestName"] = _scenarioContext.ScenarioInfo.Title;
+        DriverManager.SetBrowser(BrowserType.Firefox);
+        DriverManager.GetDriver();
+    }
 
-        [BeforeScenario]
-        public void BeforeScenario()
-        {
-            LogicalThreadContext.Properties["TestName"] = _scenarioContext.ScenarioInfo.Title;
-            DriverManager.SetBrowser(BrowserType.Firefox);
-            DriverManager.GetDriver();
-        }
-
-        [AfterScenario]
-        public void AfterScenario()
-        {
-            DriverManager.QuitDriver();
-            LogicalThreadContext.Properties.Remove("TestName");
-        }
+    [AfterScenario]
+    public void AfterScenario()
+    {
+        DriverManager.QuitDriver();
+        LogicalThreadContext.Properties.Remove("TestName");
     }
 }

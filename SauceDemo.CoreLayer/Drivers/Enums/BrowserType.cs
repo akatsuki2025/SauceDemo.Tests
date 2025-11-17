@@ -1,9 +1,8 @@
-﻿namespace SauceDemo.CoreLayer.Drivers.Enums
+﻿namespace SauceDemo.CoreLayer.Drivers.Enums;
+
+public enum BrowserType
 {
-    public enum BrowserType
-    {
-        Chrome,
-        Firefox,
-        Edge
-    }
+    Chrome,
+    Firefox,
+    Edge
 }
