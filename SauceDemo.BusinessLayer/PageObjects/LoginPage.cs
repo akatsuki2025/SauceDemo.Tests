@@ -57,5 +57,23 @@ namespace SauceDemo.BusinessLayer.PageObjects
                 return string.Empty;
             }
         }
+
+        /// <summary>
+        /// Checks if the current page is the Login page by verifying key elements.
+        /// </summary>
+        /// <returns>True if at the Login page, otherwise false.</returns>
+        public bool IsAt()
+        {
+            try
+            {
+                return WaitForElement(UsernameInput).Displayed &&
+                       WaitForElement(PasswordInput).Displayed &&
+                       WaitForElement(LoginButton).Displayed;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
     }
 }
