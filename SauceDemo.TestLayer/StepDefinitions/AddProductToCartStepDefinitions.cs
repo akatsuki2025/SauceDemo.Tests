@@ -8,10 +8,10 @@ public class AddProductToCartStepDefinitions
     private readonly DashboardPage _dashboardPage;
     private readonly CartPage _cartPage;
 
-    public AddProductToCartStepDefinitions()
+    public AddProductToCartStepDefinitions(DashboardPage dashboardPage, CartPage cartPage)
     {
-        _dashboardPage = new DashboardPage();
-        _cartPage = new CartPage();
+        _dashboardPage = dashboardPage;
+        _cartPage = cartPage;
     }
 
     [When("the user adds {string} to the cart")]

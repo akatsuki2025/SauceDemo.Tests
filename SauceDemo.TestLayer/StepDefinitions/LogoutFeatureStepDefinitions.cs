@@ -9,10 +9,10 @@ public class LogoutFeatureStepDefinitions : BaseStepDefinitions
     private readonly LoginPage _loginPage;
     private readonly DashboardPage _dashboardPage;
 
-    public LogoutFeatureStepDefinitions()
+    public LogoutFeatureStepDefinitions(LoginPage loginPage, DashboardPage dashboardPage)
     {
-        _loginPage = new LoginPage();
-        _dashboardPage = new DashboardPage();
+        _loginPage = loginPage;
+        _dashboardPage = dashboardPage;
     }
 
     [Given("The user is logged in with valid credentials")]
