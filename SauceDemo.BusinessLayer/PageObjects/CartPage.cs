@@ -1,6 +1,5 @@
-﻿using OpenQA.Selenium;
-
-namespace SauceDemo.BusinessLayer.PageObjects;
+﻿namespace SauceDemo.BusinessLayer.PageObjects;
+using OpenQA.Selenium;
 
 public class CartPage : BasePage
 {
@@ -11,13 +10,14 @@ public class CartPage : BasePage
     public bool IsProductInCart(string productName)
     {
         var productLocator = By.XPath($"//div[@class='inventory_item_name' and text()='{productName}']");
-        try
-        {
-            return WaitForElement(productLocator).Displayed;
-        }
-        catch (NoSuchElementException)
-        {
-            return false;
-        }
+        var elements = Driver.FindElements(productLocator);
+        return elements.Count > 0 && elements[0].Displayed;
+    }
+
+    public void RemoveProductFromCart(string productName)
+    {
+        var productId = ToProductId(productName);
+        var removeButtonId = $"remove-{productId}";
+        WaitForElement(By.Id(removeButtonId)).Click();
     }
 }

@@ -31,4 +31,37 @@ public class AddProductToCartStepDefinitions
         _dashboardPage.ClickCartButton();
         _cartPage.IsProductInCart(productName).Should().BeTrue($"Cart should contain product '{productName}");
     }
+
+    [When("the user removes {string} from the cart")]
+    public void WhenTheUserRemovesFromTheCart(string productName)
+    {
+        _dashboardPage.ClickCartButton();
+        _cartPage.RemoveProductFromCart(productName);
+    }
+
+    [Then("the cart badge should not be visible")]
+    public void ThenTheCartBadgeShouldNotBeVisible()
+    {
+        _dashboardPage.IsCartBadgeVisible().Should().BeFalse("Cart badge should not be visible");
+    }
+
+    [Then("the cart should not contain {string}")]
+    public void ThenTheCartShouldNotContain(string productName)
+    {
+        _dashboardPage.ClickCartButton();
+        _cartPage.IsProductInCart(productName).Should().BeFalse($"Cart should not contain product '{productName}'");
+    }
+
+    [When("the user removes {string} from the dashboard")]
+    public void WhenTheUserRemovesFromTheDashboard(string productName)
+    {
+        _dashboardPage.RemoveProductFromDashboard(productName);
+    }
+
+    [When("the user navigates to the cart page")]
+    public void WhenTheUserNavigatesToTheCartPage()
+    {
+        _dashboardPage.ClickCartButton();
+    }
+
 }

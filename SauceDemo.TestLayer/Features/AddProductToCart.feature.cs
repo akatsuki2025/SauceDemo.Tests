@@ -19,14 +19,14 @@ namespace SauceDemo.TestLayer.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class AddItemToCartFeature : object, Xunit.IClassFixture<AddItemToCartFeature.FixtureData>, Xunit.IAsyncLifetime
+    public partial class AddProductToCartFeature : object, Xunit.IClassFixture<AddProductToCartFeature.FixtureData>, Xunit.IAsyncLifetime
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Add item to cart", "As a user\r\nI want to add products to my shopping cart\r\nSo that I can purchase the" +
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Add product to cart", "As a user\r\nI want to add products to my shopping cart\r\nSo that I can purchase the" +
                 "m later", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
@@ -34,7 +34,7 @@ namespace SauceDemo.TestLayer.Features
 #line 1 "AddProductToCart.feature"
 #line hidden
         
-        public AddItemToCartFeature(AddItemToCartFeature.FixtureData fixtureData, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public AddProductToCartFeature(AddProductToCartFeature.FixtureData fixtureData, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
         }
@@ -103,7 +103,7 @@ namespace SauceDemo.TestLayer.Features
         }
         
         [Xunit.SkippableTheoryAttribute(DisplayName="Add a single product to the cart")]
-        [Xunit.TraitAttribute("FeatureTitle", "Add item to cart")]
+        [Xunit.TraitAttribute("FeatureTitle", "Add product to cart")]
         [Xunit.TraitAttribute("Description", "Add a single product to the cart")]
         [Xunit.TraitAttribute("Category", "parellel")]
         [Xunit.InlineDataAttribute("Sauce Labs Backpack", new string[0])]
@@ -149,7 +149,7 @@ await this.FeatureBackgroundAsync();
         }
         
         [Xunit.SkippableTheoryAttribute(DisplayName="Add multiple products to the cart")]
-        [Xunit.TraitAttribute("FeatureTitle", "Add item to cart")]
+        [Xunit.TraitAttribute("FeatureTitle", "Add product to cart")]
         [Xunit.TraitAttribute("Description", "Add multiple products to the cart")]
         [Xunit.TraitAttribute("Category", "parallel")]
         [Xunit.InlineDataAttribute("Sauce Labs Backpack", "Sauce Labs Bike Light", new string[0])]
@@ -200,6 +200,103 @@ await this.FeatureBackgroundAsync();
             await this.ScenarioCleanupAsync();
         }
         
+        [Xunit.SkippableTheoryAttribute(DisplayName="Remove a product from the dashboard page")]
+        [Xunit.TraitAttribute("FeatureTitle", "Add product to cart")]
+        [Xunit.TraitAttribute("Description", "Remove a product from the dashboard page")]
+        [Xunit.TraitAttribute("Category", "parallel")]
+        [Xunit.InlineDataAttribute("Sauce Labs Backpack", new string[0])]
+        [Xunit.InlineDataAttribute("Sauce Labs Bike Light", new string[0])]
+        public async System.Threading.Tasks.Task RemoveAProductFromTheDashboardPage(string productName, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "parallel"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("ProductName", productName);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Remove a product from the dashboard page", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 38
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 7
+await this.FeatureBackgroundAsync();
+#line hidden
+#line 39
+    await testRunner.WhenAsync(string.Format("the user adds \"{0}\" to the cart", productName), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 40
+    await testRunner.AndAsync(string.Format("the user removes \"{0}\" from the dashboard", productName), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 41
+    await testRunner.ThenAsync("the cart badge should not be visible", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 42
+    await testRunner.AndAsync(string.Format("the cart should not contain \"{0}\"", productName), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [Xunit.SkippableTheoryAttribute(DisplayName="Remove a product from the cart page")]
+        [Xunit.TraitAttribute("FeatureTitle", "Add product to cart")]
+        [Xunit.TraitAttribute("Description", "Remove a product from the cart page")]
+        [Xunit.TraitAttribute("Category", "parallel")]
+        [Xunit.InlineDataAttribute("Sauce Labs Backpack", new string[0])]
+        [Xunit.InlineDataAttribute("Sauce Labs Bike Light", new string[0])]
+        public async System.Threading.Tasks.Task RemoveAProductFromTheCartPage(string productName, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "parallel"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("ProductName", productName);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Remove a product from the cart page", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 50
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 7
+await this.FeatureBackgroundAsync();
+#line hidden
+#line 51
+    await testRunner.WhenAsync(string.Format("the user adds \"{0}\" to the cart", productName), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 52
+    await testRunner.AndAsync("the user navigates to the cart page", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 53
+    await testRunner.AndAsync(string.Format("the user removes \"{0}\" from the cart", productName), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 54
+    await testRunner.ThenAsync("the cart badge should not be visible", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 55
+    await testRunner.AndAsync(string.Format("the cart should not contain \"{0}\"", productName), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : object, Xunit.IAsyncLifetime
@@ -207,12 +304,12 @@ await this.FeatureBackgroundAsync();
             
             async System.Threading.Tasks.Task Xunit.IAsyncLifetime.InitializeAsync()
             {
-                await AddItemToCartFeature.FeatureSetupAsync();
+                await AddProductToCartFeature.FeatureSetupAsync();
             }
             
             async System.Threading.Tasks.Task Xunit.IAsyncLifetime.DisposeAsync()
             {
-                await AddItemToCartFeature.FeatureTearDownAsync();
+                await AddProductToCartFeature.FeatureTearDownAsync();
             }
         }
     }

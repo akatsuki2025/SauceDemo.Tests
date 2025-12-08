@@ -66,7 +66,7 @@ public class LoginFeatureStepDefinitions : BaseStepDefinitions
     [Then("the dashboard title {string} should be displayed")]
     public void ThenTheDashboardTitleShouldBeDisplayed(string expectedTitle)
     {
-        var actualTitle = _dashboardPage.GetDashboardTitle();
+        var actualTitle = _dashboardPage.GetHeaderTitle();
         Log.Info($"Checking dashboard title. Expected: '{expectedTitle}', Actual: '{actualTitle}'");
         actualTitle.Should().Be(expectedTitle, "the dashboard title should match after successful login");
     }

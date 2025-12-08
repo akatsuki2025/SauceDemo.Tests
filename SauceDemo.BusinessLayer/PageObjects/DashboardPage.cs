@@ -3,47 +3,28 @@ using OpenQA.Selenium;
 
 public class DashboardPage : BasePage
 {
-    private static readonly By DashboardTitle = By.CssSelector(".app_logo");
-    private static readonly By MenuButton = By.CssSelector("#react-burger-menu-btn");
-    private static readonly By LogoutButton = By.CssSelector("#logout_sidebar_link");
-    private static readonly By CartBadge = By.ClassName("shopping_cart_badge");
-    private static readonly By CartButton = By.ClassName("shopping_cart_link");
+    private readonly HeaderComponent _headerComponent;
 
     public DashboardPage() : base() 
-    { 
-    }
-
-    public string GetDashboardTitle()
     {
-        return WaitForElement(DashboardTitle).Text;
-    }
-
-    public void ClickLogout()
-    {
-        WaitForElement(MenuButton).Click();
-        WaitForElement(LogoutButton).Click();
+        _headerComponent = new HeaderComponent(Driver, Wait);
     }
 
     public void AddProductToCart(string productName)
     {
-        var productId = productName.ToLower().Replace(" ", "-");
+        var productId = ToProductId(productName);
         WaitForElement(By.Id($"add-to-cart-{productId}")).Click();
     }
 
-    public string GetCartBadgeCount()
+    public void RemoveProductFromDashboard(string productName)
     {
-        try
-        {
-            return WaitForElement(CartBadge).Text;
-        }
-        catch (NoSuchElementException)
-        {
-            return "0";
-        }
+        var productId = ToProductId(productName);
+        WaitForElement(By.Id($"remove-{productId}")).Click();
     }
 
-    public void ClickCartButton()
-    {
-        WaitForElement(CartButton).Click();
-    }
+    public string GetHeaderTitle() => _headerComponent.GetHeaderTitle();
+    public void ClickLogout() => _headerComponent.ClickLogout();
+    public string GetCartBadgeCount() => _headerComponent.GetCartBadgeCount();
+    public void ClickCartButton() => _headerComponent.ClickCartButton();
+    public bool IsCartBadgeVisible() => _headerComponent.IsCartBadgeVisible();
 }

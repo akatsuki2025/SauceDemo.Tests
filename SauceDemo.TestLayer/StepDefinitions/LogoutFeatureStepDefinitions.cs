@@ -27,7 +27,7 @@ public class LogoutFeatureStepDefinitions : BaseStepDefinitions
             _loginPage.ClickLogin();
 
             Log.Info("Verifying successful login.");
-            _dashboardPage.GetDashboardTitle().Should().Be("Swag Labs");
+            _dashboardPage.GetHeaderTitle().Should().Be("Swag Labs");
         }
         catch (Exception ex)
         {

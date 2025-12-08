@@ -1,4 +1,4 @@
-﻿Feature: Add item to cart
+﻿Feature: Add product to cart
 
 As a user
 I want to add products to my shopping cart
@@ -29,7 +29,32 @@ Scenario Outline: Add multiple products to the cart
     And the cart should contain "<Product2>"
 
     Examples:
-        | Product1                 | Product2                |
-        | Sauce Labs Backpack      | Sauce Labs Bike Light   |
-        | Sauce Labs Bolt T-Shirt  | Sauce Labs Fleece Jacket|
-        | Sauce Labs Backpack      | Sauce Labs Fleece Jacket|
+    | Product1                 | Product2                |
+    | Sauce Labs Backpack      | Sauce Labs Bike Light   |
+    | Sauce Labs Bolt T-Shirt  | Sauce Labs Fleece Jacket|
+    | Sauce Labs Backpack      | Sauce Labs Fleece Jacket|
+
+@parallel
+Scenario Outline: Remove a product from the dashboard page
+    When the user adds "<ProductName>" to the cart
+    And the user removes "<ProductName>" from the dashboard
+    Then the cart badge should not be visible
+    And the cart should not contain "<ProductName>"
+
+    Examples:
+    | ProductName                |
+    | Sauce Labs Backpack        |
+    | Sauce Labs Bike Light      |
+
+@parallel
+Scenario Outline: Remove a product from the cart page
+    When the user adds "<ProductName>" to the cart
+    And the user navigates to the cart page
+    And the user removes "<ProductName>" from the cart
+    Then the cart badge should not be visible
+    And the cart should not contain "<ProductName>"
+
+    Examples:
+    | ProductName                |
+    | Sauce Labs Backpack        |
+    | Sauce Labs Bike Light      |

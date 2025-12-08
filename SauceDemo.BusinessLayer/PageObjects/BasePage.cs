@@ -57,4 +57,9 @@ public abstract class BasePage
         element.SendKeys(modifierKey + "a");
         element.SendKeys(Keys.Delete);
     }
+
+    protected static string ToProductId(string productName)
+    {
+        return productName.ToLowerInvariant().Replace(" ", "-");
+    }
 }

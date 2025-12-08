@@ -55,6 +55,10 @@ public class LoginPage : BasePage
         {
             return string.Empty;
         }
+        catch (WebDriverTimeoutException)
+        {
+            return string.Empty;
+        }
     }
 
     /// <summary>
@@ -70,6 +74,10 @@ public class LoginPage : BasePage
                    WaitForElement(LoginButton).Displayed;
         }
         catch (NoSuchElementException)
+        {
+            return false;
+        }
+        catch (WebDriverTimeoutException)
         {
             return false;
         }
