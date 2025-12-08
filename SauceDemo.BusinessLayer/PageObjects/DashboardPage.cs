@@ -10,12 +10,20 @@ public class DashboardPage : BasePage
         _headerComponent = new HeaderComponent(Driver, Wait);
     }
 
+    /// <summary>
+    /// Adds the specified product to the cart.
+    /// </summary>
+    /// <param name="productName">The name of the product to add.</param>
     public void AddProductToCart(string productName)
     {
         var productId = ToProductId(productName);
         WaitForElement(By.Id($"add-to-cart-{productId}")).Click();
     }
 
+    /// <summary>
+    /// Removes the specified product from the dashboard.
+    /// </summary>
+    /// <param name="productName">The name of the product to remove.</param>
     public void RemoveProductFromDashboard(string productName)
     {
         var productId = ToProductId(productName);
