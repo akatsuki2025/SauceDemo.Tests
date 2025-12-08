@@ -37,7 +37,7 @@ Scenario Outline: Add multiple products to the cart
 @parallel
 Scenario Outline: Remove a product from the dashboard page
     When the user adds "<ProductName>" to the cart
-    And the user removes "<ProductName>" from the dashboard
+    And the user removes "<ProductName>" from the dashboard page
     Then the cart badge should not be visible
     And the cart should not contain "<ProductName>"
 
@@ -50,7 +50,7 @@ Scenario Outline: Remove a product from the dashboard page
 Scenario Outline: Remove a product from the cart page
     When the user adds "<ProductName>" to the cart
     And the user navigates to the cart page
-    And the user removes "<ProductName>" from the cart
+    And the user removes "<ProductName>" from the cart page
     Then the cart badge should not be visible
     And the cart should not contain "<ProductName>"
 

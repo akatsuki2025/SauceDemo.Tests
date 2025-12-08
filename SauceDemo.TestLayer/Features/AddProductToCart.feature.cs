@@ -235,7 +235,7 @@ await this.FeatureBackgroundAsync();
     await testRunner.WhenAsync(string.Format("the user adds \"{0}\" to the cart", productName), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 40
-    await testRunner.AndAsync(string.Format("the user removes \"{0}\" from the dashboard", productName), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+    await testRunner.AndAsync(string.Format("the user removes \"{0}\" from the dashboard page", productName), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 41
     await testRunner.ThenAsync("the cart badge should not be visible", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -285,7 +285,7 @@ await this.FeatureBackgroundAsync();
     await testRunner.AndAsync("the user navigates to the cart page", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 53
-    await testRunner.AndAsync(string.Format("the user removes \"{0}\" from the cart", productName), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+    await testRunner.AndAsync(string.Format("the user removes \"{0}\" from the cart page", productName), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 54
     await testRunner.ThenAsync("the cart badge should not be visible", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
