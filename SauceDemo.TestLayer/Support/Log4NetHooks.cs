@@ -1,6 +1,5 @@
 ﻿namespace SauceDemo.TestLayer.Support;
 
-[Binding]
 public static class Log4NetHooks
 {
     [BeforeTestRun]
