@@ -1,4 +1,6 @@
-﻿namespace SauceDemo.TestLayer.StepDefinitions;
+﻿using SauceDemo.TestLayer.Support;
+
+namespace SauceDemo.TestLayer.StepDefinitions;
 
 public abstract class BaseStepDefinitions
 {
@@ -6,6 +8,6 @@ public abstract class BaseStepDefinitions
 
     protected BaseStepDefinitions()
     {
-        BaseUrl = Environment.GetEnvironmentVariable("BASE_URL") ?? "https://www.saucedemo.com/";
+        BaseUrl = TestConfiguration.BaseUrl;
     }
 }
