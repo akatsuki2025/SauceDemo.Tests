@@ -82,8 +82,8 @@ Assertions: FluentAssertions;
    Restore NuGet packages for the solution.
 
 2. **Configure WebDriver:**  
-   The browser is selected in [`WebDriverHooks`](SauceDemo.TestLayer/Support/WebDriverHooks.cs).  
-   By default, tests use Firefox. To use Edge or Chrome, update the browser type in the hook.
+   The browser is selected via the `TestSettings:Browser` value in [`appsettings.json`](SauceDemo.TestLayer/appsettings.json).  
+   By default, tests use Firefox. To use Edge or Chrome, update the browser type in `appsettings.json`.
 
 3. **Run Tests:**  
    Use the following command in the solution directory:
@@ -99,8 +99,7 @@ Assertions: FluentAssertions;
 ## Customization
 
 - **Browser Support:**  
-  Change the browser type in [`WebDriverHooks`](SauceDemo.TestLayer/Support/WebDriverHooks.cs) to use Chrome, Edge, or Firefox.
-
+  Change the browser type in [`appsettings.json`](SauceDemo.TestLayer/appsettings.json) (`TestSettings:Browser`) to use Chrome, Edge, or Firefox.
 ---
 
 **Note:**  

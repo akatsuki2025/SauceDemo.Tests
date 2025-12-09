@@ -1,6 +1,7 @@
 namespace SauceDemo.TestLayer.StepDefinitions;
 using FluentAssertions;
 using log4net;
+using SauceDemo.TestLayer.Support;
 
 [Binding]
 public class LogoutFeatureStepDefinitions : BaseStepDefinitions
@@ -22,8 +23,8 @@ public class LogoutFeatureStepDefinitions : BaseStepDefinitions
         try
         {
             _loginPage.NavigateTo(BaseUrl);
-            _loginPage.EnterUsername(Environment.GetEnvironmentVariable("SAUCE_USERNAME") ?? "standard_user");
-            _loginPage.EnterPassword(Environment.GetEnvironmentVariable("SAUCE_PASSWORD") ?? "secret_sauce");
+            _loginPage.EnterUsername(TestConfiguration.DefaultUsername);
+            _loginPage.EnterPassword(TestConfiguration.DefaultPassword);
             _loginPage.ClickLogin();
 
             Log.Info("Verifying successful login.");

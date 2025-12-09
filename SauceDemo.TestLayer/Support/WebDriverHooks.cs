@@ -16,7 +16,8 @@ public class WebDriverHooks
     public void BeforeScenario()
     {
         LogicalThreadContext.Properties["TestName"] = _scenarioContext.ScenarioInfo.Title;
-        DriverManager.SetBrowser(BrowserType.Firefox);
+        var browser = TestConfiguration.Browser;
+        DriverManager.SetBrowser(Enum.Parse<BrowserType>(browser));
         DriverManager.GetDriver();
     }
 
